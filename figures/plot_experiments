@@ -14,8 +14,8 @@ gnuplot << END
 
 set datafile separator ','
 
-set terminal pngcairo transparent enhanced size 12in, 8in font 'Times,20'
-set output 'energy_gauss.png'
+set terminal pdfcairo transparent enhanced size 12in, 8in font 'Times,40'
+set output 'energy_gauss.pdf'
 
 set border 3
 
@@ -33,7 +33,7 @@ set ylabel ''
 set format y ''
 set yrange[0:0.05]
 
-set label "{/Symbol p}_{ {/Symbol D}E}" at 12, 0.03 center tc rgb "$dark_highlight"
+set label "{/Symbol p}_{ {/Symbol D}E}" at 13, 0.03 center tc rgb "$dark_highlight"
 set label "{/Symbol p}_{ E}" at 22, 0.01 center tc rgb "$light_highlight"
 
 binwidth = 1
@@ -66,8 +66,8 @@ gnuplot << END
 
 set datafile separator ','
 
-set terminal pngcairo transparent enhanced size 12in, 8in font 'Times,20'
-set output 'energy_cauchy.png'
+set terminal pdfcairo transparent enhanced size 12in, 8in font 'Times,40'
+set output 'energy_cauchy.pdf'
 
 set border 3
 
@@ -112,8 +112,8 @@ gnuplot << END
 
 set datafile separator ','
 
-set terminal pngcairo transparent enhanced size 12in, 8in font 'Times,30'
-set output 'energy_schools_cp.png'
+set terminal pdfcairo transparent enhanced size 12in, 8in font 'Times,60'
+set output 'energy_schools_cp.pdf'
 
 set border 3
 
@@ -156,8 +156,8 @@ gnuplot << END
 
 set datafile separator ","
 
-set terminal pngcairo transparent enhanced size 12in, 8in font 'Times,30'
-set output "energy_funnel_cp.png"
+set terminal pdfcairo transparent enhanced size 12in, 8in font 'Times,60'
+set output "energy_funnel_cp.pdf"
 
 set border 3
 
@@ -189,8 +189,8 @@ gnuplot << END
 
 set datafile separator ','
 
-set terminal pngcairo transparent enhanced size 12in, 8in font 'Times,30'
-set output 'energy_schools_cp_99.png'
+set terminal pdfcairo transparent enhanced size 12in, 8in font 'Times,60'
+set output 'energy_schools_cp_99.pdf'
 
 set border 3
 
@@ -233,8 +233,8 @@ gnuplot << END
 
 set datafile separator ","
 
-set terminal pngcairo transparent enhanced size 12in, 8in font 'Times,30'
-set output "energy_funnel_cp_99.png"
+set terminal pdfcairo transparent enhanced size 12in, 8in font 'Times,60'
+set output "energy_funnel_cp_99.pdf"
 
 set border 3
 
@@ -266,8 +266,8 @@ gnuplot << END
 
 set datafile separator ','
 
-set terminal pngcairo transparent enhanced size 12in, 8in font 'Times,30'
-set output 'energy_schools_ncp.png'
+set terminal pdfcairo transparent enhanced size 12in, 8in font 'Times,60'
+set output 'energy_schools_ncp.pdf'
 
 set border 3
 
@@ -310,8 +310,8 @@ gnuplot << END
 
 set datafile separator ","
 
-set terminal pngcairo transparent enhanced size 12in, 8in font 'Times,30'
-set output "energy_funnel_ncp.png"
+set terminal pdfcairo transparent enhanced size 12in, 8in font 'Times,60'
+set output "energy_funnel_ncp.pdf"
 
 set border 3
 

@@ -53,7 +53,14 @@
 \end{aug}
 
 \begin{abstract}
-Dododo
+When properly tuned, Hamiltonian Monte Carlo scales
+to some of the most challenging high-dimensional problems
+at the frontiers of applied statistics, but when that tuning is
+suboptimal the performance leaves much to be desired.
+In this paper I show how suboptimal choices of one critical
+degree of freedom, the cotangent disintegration, manifest 
+in readily observed diagnostics that facilitate the robust
+application of the algorithm.
 \end{abstract}
 
 \begin{keyword}
@@ -593,7 +600,7 @@ diagnostics (Figure \ref{fig:gauss_exp}).
 
 \begin{figure}
 \centering
-\includegraphics[width=4in]{energy_gauss.png}
+\includegraphics[width=4in]{energy_gauss.pdf}
 \caption{A Gaussian-Euclidean cotangent disintegration is well-suited
 to a Gaussian target distribution -- at each iteration the momentum
 resampling is able to jump the Hamiltonian Markov chain to any relevant
@@ -618,7 +625,7 @@ distribution.
 
 \begin{figure}
 \centering
-\includegraphics[width=4in]{energy_cauchy.png}
+\includegraphics[width=4in]{energy_cauchy.pdf}
 \caption{The heavy tails of the Cauchy distribution induce a heavy-tailed
 marginal energy distribution which limits the efficacy of a Hamiltonian 
 Markov chain utilizing the more lightly-tailed energy variation induced by a 
@@ -661,8 +668,8 @@ number of divergences at small $\tau$,
 
 \begin{figure}
 \centering
-\subfigure[]{ \includegraphics[width=2.5in]{energy_schools_cp.png} }
-\subfigure[]{ \includegraphics[width=2.5in]{energy_funnel_cp.png} }
+\subfigure[]{ \includegraphics[width=2.5in]{energy_schools_cp.pdf} }
+\subfigure[]{ \includegraphics[width=2.5in]{energy_funnel_cp.pdf} }
 \caption{(a) The empirically-derived marginal energy distribution of the
 centered eight schools model appears to have mildly-heavy tails,
 (b) but this is misleading due to the incomplete exploration of the
@@ -680,8 +687,8 @@ is still incomplete.
 
 \begin{figure}
 \centering
-\subfigure[]{ \includegraphics[width=2.5in]{energy_schools_cp_99.png} }
-\subfigure[]{ \includegraphics[width=2.5in]{energy_funnel_cp_99.png} }
+\subfigure[]{ \includegraphics[width=2.5in]{energy_schools_cp_99.pdf} }
+\subfigure[]{ \includegraphics[width=2.5in]{energy_funnel_cp_99.pdf} }
 \caption{(a) Forcing a smaller step size in the Hamiltonian Markov transition 
 admits further exploration of the centered eight schools model and better
 exhibits the true heaviness of the marginal energy distribution.  (b) The
@@ -713,8 +720,8 @@ pairing (Figures \ref{fig:num_diagnostics}, \ref{fig:energy_schools_ncp_exp})
 
 \begin{figure}
 \centering
-\subfigure[]{ \includegraphics[width=2.5in]{energy_schools_ncp.png} }
-\subfigure[]{ \includegraphics[width=2.5in]{energy_funnel_ncp.png} }
+\subfigure[]{ \includegraphics[width=2.5in]{energy_schools_ncp.pdf} }
+\subfigure[]{ \includegraphics[width=2.5in]{energy_funnel_ncp.pdf} }
 \caption{A non-centered implementation of the eight schools model is
 not only free of the pathologies that limit the exploration of the centered
 implementation but also is a nearly optimal pairing with the 
