@@ -14,7 +14,7 @@ gnuplot << END
 
 set datafile separator ','
 
-set terminal pdfcairo transparent enhanced size 12in, 8in font 'Times,40'
+set terminal pdfcairo transparent enhanced size 12in, 8in font 'Times,60'
 set output 'energy_gauss.pdf'
 
 set border 3
@@ -33,8 +33,8 @@ set ylabel ''
 set format y ''
 set yrange[0:0.05]
 
-set label "{/Symbol p}_{ {/Symbol D}E}" at 13, 0.03 center tc rgb "$dark_highlight"
-set label "{/Symbol p}_{ E}" at 22, 0.01 center tc rgb "$light_highlight"
+set label "{/Symbol p}_{ {/Symbol D}E}" at 17, 0.03 center tc rgb "$dark_highlight"
+set label "{/Symbol p}_{ E}" at 24, 0.01 center tc rgb "$light_highlight"
 
 binwidth = 1
 set boxwidth binwidth
@@ -66,7 +66,7 @@ gnuplot << END
 
 set datafile separator ','
 
-set terminal pdfcairo transparent enhanced size 12in, 8in font 'Times,40'
+set terminal pdfcairo transparent enhanced size 12in, 8in font 'Times,60'
 set output 'energy_cauchy.pdf'
 
 set border 3

@@ -160,10 +160,12 @@ Hamiltonian Monte Carlo achieves such informed transitions by
 harnessing the differential geometry of the target distribution with
 auxiliary \emph{momenta} parameters.  The algorithm begins by
 first attaching to each point, in the sample space, $q$, a copy of
-$\mathbb{R}^{D}$ called a \emph{momenta fiber}.  Collecting these 
-fibers together yields the $2D$-dimensional \emph{cotangent bundle}, 
-$T^{*} Q$, with a natural projection that collapses each fiber to the 
-base point at which it was attached, 
+$\mathbb{R}^{D}$ called a \emph{momenta fiber}.  Points in these
+fibers, $p \in \mathbb{R}^{D}$, are called \emph{momenta}.
+
+Collecting these fibers together yields the $2D$-dimensional 
+\emph{cotangent bundle}, $T^{*} Q$, with a natural projection that 
+collapses each fiber to the base point at which it was attached, 
 %
 \begin{align*}
 \varpi:& \; T^{*} Q \rightarrow Q
@@ -381,7 +383,7 @@ the chain large.}
 \label{fig:energy_marginals}
 \end{figure}
 
-Consequently, the compatibility of the momentum mresampling-induced 
+Consequently, the compatibility of the momentum resampling-induced 
 distributions and the marginal energy distribution defines an implicit criterion 
 for selecting an optimal cotangent disintegration for a given target distribution.  
 There are many ways, however, of quantifying this compatibility in theory and 
@@ -569,19 +571,6 @@ The exact version of \textsc{CmdStan} can be found at
 \url{https://github.com/stan-dev/cmdstan/commit/ad6177357d4d228e129eefa60c9f399b36e9ac19}, and all Stan programs 
 and configurations can be found in the Appendix.
 
-\begin{figure}
-\centering
-\includegraphics[width=4in]{experiment_results.eps}
-\caption{Both the Bayesian fraction of mission information, BFMI, 
-and effective sample size per transition for the energy ESS/T(E),
-quantify the compatibility of a cotangent disintegration with a
-given target distribution.  Here a Gaussian-Euclidean cotangent
-disintegration works well for both a Gaussian and non-centered eight
-schools target, but is less effective for the heavier-tailed Cauchy
-and centered eight schools targets.}
-\label{fig:num_diagnostics}
-\end{figure}
-
 \subsection{Gaussian Target}
 
 Let's first consider a 100-dimensional identically and independently distributed
@@ -596,16 +585,20 @@ E \sim \chi^{2} \! \left( 2 D, \frac{1}{2} \right),
 which converges to a $\mathcal{N} \! \left( D, D \right)$ with increasing
 dimension.  This perfectly matches the expected energy variation, as evident
 in both numerical diagnostics (Figure \ref{fig:num_diagnostics})  and visual
-diagnostics (Figure \ref{fig:gauss_exp}).
+diagnostics (Figure \ref{fig:gauss_cauchy_exp}a).
 
 \begin{figure}
 \centering
-\includegraphics[width=4in]{energy_gauss.pdf}
-\caption{A Gaussian-Euclidean cotangent disintegration is well-suited
+\subfigure[]{  \includegraphics[width=2.75in]{energy_gauss.pdf} }
+\subfigure[]{  \includegraphics[width=2.75in]{energy_cauchy.pdf} }
+\caption{(a) A Gaussian-Euclidean cotangent disintegration is well-suited
 to a Gaussian target distribution -- at each iteration the momentum
 resampling is able to jump the Hamiltonian Markov chain to any relevant
-level set.}
-\label{fig:gauss_exp}
+level set. (b) The heavy tails of the Cauchy distribution, however, induce a 
+heavy-tailed marginal energy distribution which limits the efficacy of a 
+Hamiltonian Markov chain utilizing the more lightly-tailed energy variation 
+induced by a Gaussian-Euclidean cotangent disintegration.}
+\label{fig:gauss_cauchy_exp}
 \end{figure}
 
 \subsection{Cauchy Target}
@@ -617,21 +610,11 @@ distribution induce a marginal energy distribution with heavier tails than
 the momentum resampling-induced energy variation.  Consequently each 
 transition is limited to only those level sets in close proximity to the initial 
 level set, resulting in slower exploration and decreased performance 
-(Figures \ref{fig:num_diagnostics}, \ref{fig:cauchy_exp}).  Despite the 
+(Figures \ref{fig:num_diagnostics}, \ref{fig:gauss_cauchy_exp}b).  Despite the 
 suboptimality of this disintegration, however, the Hamiltonian Markov chain 
 is able to explore all relevant energies within only a few transitions and 
 ends up performing surprisingly well given the reputation of the Cauchy 
 distribution.
-
-\begin{figure}
-\centering
-\includegraphics[width=4in]{energy_cauchy.pdf}
-\caption{The heavy tails of the Cauchy distribution induce a heavy-tailed
-marginal energy distribution which limits the efficacy of a Hamiltonian 
-Markov chain utilizing the more lightly-tailed energy variation induced by a 
-Gaussian-Euclidean cotangent disintegration.}
-\label{fig:cauchy_exp}
-\end{figure}
 
 \subsection{Hierarchical Target}
 
@@ -670,34 +653,28 @@ number of divergences at small $\tau$,
 \centering
 \subfigure[]{ \includegraphics[width=2.5in]{energy_schools_cp.pdf} }
 \subfigure[]{ \includegraphics[width=2.5in]{energy_funnel_cp.pdf} }
+\subfigure[]{ \includegraphics[width=2.5in]{energy_schools_cp_99.pdf} }
+\subfigure[]{ \includegraphics[width=2.5in]{energy_funnel_cp_99.pdf} }
 \caption{(a) The empirically-derived marginal energy distribution of the
 centered eight schools model appears to have mildly-heavy tails,
 (b) but this is misleading due to the incomplete exploration of the
 tails as indicated by the divergent transitions in the Hamiltonian Markov 
 chain shown in green.  With so many divergences, the numerical and visual
-diagnostics are suspect.}
-\label{fig:energy_schools_cp_exp}
-\end{figure}
-
-Forcing the step size of the numerical integrator to a smaller value
-improves the exploration of the tails (Figure \ref{fig:energy_schools_cp_99_exp}b)
-and better reveals the true heaviness of the marginal energy distribution
-(Figure \ref{fig:energy_schools_cp_99_exp}a), although the exploration
-is still incomplete.
-
-\begin{figure}
-\centering
-\subfigure[]{ \includegraphics[width=2.5in]{energy_schools_cp_99.pdf} }
-\subfigure[]{ \includegraphics[width=2.5in]{energy_funnel_cp_99.pdf} }
-\caption{(a) Forcing a smaller step size in the Hamiltonian Markov transition 
-admits further exploration of the centered eight schools model and better
-exhibits the true heaviness of the marginal energy distribution.  (b) The
-persistent divergent transitions (green), however, indicate that the exploration 
+diagnostics are suspect. (c) Forcing a smaller step size in the Hamiltonian Markov 
+transition admits further exploration of the centered eight schools model and better
+exhibits the true heaviness of the marginal energy distribution.  (d) The
+persistent divergent transitions, however, indicate that the exploration 
 is still incomplete.  Regardless of the partial exploration, the 
 Gaussian-Euclidean disintegration is suboptimal for this implementation of
 the model.}
-\label{fig:energy_schools_cp_99_exp}
+\label{fig:energy_schools_exp}
 \end{figure}
+
+Forcing the step size of the numerical integrator to a smaller value
+improves the exploration of the tails (Figure \ref{fig:energy_schools_cp_exp}d)
+and better reveals the true heaviness of the marginal energy distribution
+(Figure \ref{fig:energy_schools_cp_exp}c), although the exploration
+is still incomplete.
 
 In order to completely explore the tails we have to utilize a non-centered
 parameterization which explores the hierarchical effects only indirectly,
@@ -727,6 +704,19 @@ not only free of the pathologies that limit the exploration of the centered
 implementation but also is a nearly optimal pairing with the 
 Gaussian-Euclidean cotangent disintegration.}
 \label{fig:energy_schools_ncp_exp}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=4in]{experiment_results.eps}
+\caption{Both the Bayesian fraction of mission information, BFMI, 
+and effective sample size per transition for the energy ESS/T(E),
+quantify the compatibility of a cotangent disintegration with a
+given target distribution.  Here a Gaussian-Euclidean cotangent
+disintegration works well for both a Gaussian and non-centered eight
+schools target, but is less effective for the heavier-tailed Cauchy
+and centered eight schools targets.}
+\label{fig:num_diagnostics}
 \end{figure}
 
 \section{Discussion}
@@ -763,8 +753,9 @@ utilized in the eight schools example.
 
 \section{Acknowledgements}
 
-I am grateful to Gareth Roberts for enlightening discussions.  This work
-was supported under EPSRC grant EP/J016934/1.
+I am grateful to Gareth Roberts for enlightening discussions and Aki Vehtari
+for helpful comments on the manuscript.  This work was supported under 
+EPSRC grant EP/J016934/1.
 
 \setcounter{section}{0}
 \renewcommand{\thesection}{\Alph{section}}
